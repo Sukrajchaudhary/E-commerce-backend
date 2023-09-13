@@ -10,6 +10,6 @@ router
   .post("/", addToCart)
   .get("/", fetchCartByUser)
   .delete("/:id", deleteFromCart)
-  .delete("/:id", updateCart);
+  .patch("/:id", updateCart);
 
 exports.router = router;

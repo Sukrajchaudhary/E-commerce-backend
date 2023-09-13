@@ -9,7 +9,11 @@ const userSchema = new Schema({
      },
   // for addresses, we can make a separate Schema like orders. but in this case we are fine
   name: { type: String },
-  salt:{type:Buffer}
+  salt:{type:Buffer},
+  resetPasswordToken:{
+    type:String,
+    default:''
+  }
 });
 const virtual = userSchema.virtual("id");
 virtual.get(function () {

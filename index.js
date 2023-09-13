@@ -5,6 +5,7 @@ const passport = require("passport");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
+
 const LocalStrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const cockieParser = require("cookie-parser");
@@ -24,6 +25,17 @@ const SECRETKEY = "SECRETKEY";
 // jwt options
 // cocies extractor
 
+// starts of node mailer//
+
+
+
+
+//end of node mailer
+
+
+
+
+
 const opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = SECRETKEY;
@@ -41,6 +53,7 @@ server.use(cockieParser());
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(express.json());
+
 // tp parse req.body
 const connectTodb = async () => {
   try {
@@ -65,6 +78,8 @@ server.use("/users", isAuth(), userRouter.router);
 server.use("/auth", authRouter.router);
 server.use("/cart", isAuth(), cartRouter.router);
 server.use("/orders", isAuth(), orderRouter.router);
+// send mail with defined transport object
+
 // passport strategies
 // Local strategy for username/password authentication
 
@@ -108,7 +123,6 @@ passport.use(
 passport.use(
   "jwt",
   new JwtStrategy(opts, async function (jwt_payload, done) {
-    console.log(jwt_payload.id);
     try {
       const user = await User.findOne({_id:jwt_payload.id});
       if (user) {
