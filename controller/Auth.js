@@ -72,6 +72,7 @@ exports.resetPasswordRequest = async (req, res) => {
     res.sendStatus(400);
   }
 };
+// for ressetting password
 exports.resetPassword = async (req, res) => {
   const { email, password, token } = req.body;
   const user = await User.findOne({ email: email, resetPasswordToken: token });
